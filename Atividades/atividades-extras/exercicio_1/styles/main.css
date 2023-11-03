@@ -1,0 +1,93 @@
+body {
+  background-color: #f0f0f0;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  display: flex;
+  background-image: url("../image/wallpaper.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.container {
+  justify-content: center;
+  background-color: #fafafa;
+  align-items: center;
+  display: flex;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+}
+
+.avatar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.avatar > div {
+  margin: 10px;
+}
+
+.form_content > .button_submit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form_content > div {
+  margin: 10px;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+
+.form_content > div > label {
+  text-transform: uppercase;
+  margin: 5px;
+  color: #555; /* Cinza escuro suave */
+}
+
+.checkbox_form_content_label {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.checkbox_form_content_label label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+div input[type="submit"] {
+  background-color: #ffd700;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  padding: 8px 16px;
+  font-size: 12px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+div input {
+  background-color: #e3e2e2;
+  color: #333;
+  padding: 7px 14px;
+  font-size: 10px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+div input[type="submit"]:hover {
+  background-color: #cddb11;
+}
