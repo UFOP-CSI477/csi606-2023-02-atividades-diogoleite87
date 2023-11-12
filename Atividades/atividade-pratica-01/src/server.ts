@@ -1,8 +1,9 @@
 import { bloodTypeRoutes } from "./routes/bloodtype.routes";
+import { donationRoutes } from "./routes/donation.routes";
 import { personRoutes } from "./routes/person.routes";
 import { stateRoutes } from "./routes/state.routes";
-import { cityRoutes } from "./routes/city.routes";
 import fastify, { FastifyInstance } from "fastify";
+import { cityRoutes } from "./routes/city.routes";
 
 const app: FastifyInstance = fastify();
 
@@ -20,6 +21,10 @@ app.register(cityRoutes, {
 
 app.register(bloodTypeRoutes, {
     prefix: '/blood-type'
+})
+
+app.register(donationRoutes, {
+    prefix: '/donation'
 })
 
 app.listen({
