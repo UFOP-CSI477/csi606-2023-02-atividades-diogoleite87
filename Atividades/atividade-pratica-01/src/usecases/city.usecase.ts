@@ -1,4 +1,4 @@
-import { StateRepositoryPrisma } from "../repositories/state.interface";
+import { StateRepositoryPrisma } from "../repositories/state.repository";
 import { CityDTO, CityRepository } from "../interfaces/city.interface";
 import { CityRepositoryPrisma } from "../repositories/city.repository";
 import { StateRepository } from "../interfaces/state.interface";

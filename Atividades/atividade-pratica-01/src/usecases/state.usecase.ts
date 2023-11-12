@@ -1,5 +1,5 @@
 import { StateDTO, StateRepository } from "../interfaces/state.interface";
-import { StateRepositoryPrisma } from "../repositories/state.interface";
+import { StateRepositoryPrisma } from "../repositories/state.repository";
 import { State } from "@prisma/client";
 
 class StateUseCase {
