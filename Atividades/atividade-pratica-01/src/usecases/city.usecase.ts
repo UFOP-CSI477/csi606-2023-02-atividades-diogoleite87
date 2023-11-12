@@ -35,7 +35,7 @@ class CityUseCase {
         return result;
     }
 
-    async deleteById(id: number): Promise<City | null> {
+    async deleteById(id: number): Promise<null> {
 
         const verifyIfCityExists = await this.cityRepository.findById(id);
 

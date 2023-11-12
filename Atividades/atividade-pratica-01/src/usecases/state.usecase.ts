@@ -31,7 +31,7 @@ class StateUseCase {
         return result;
     }
 
-    async deleteById(id: number): Promise<State | null> {
+    async deleteById(id: number): Promise<null> {
 
         const verifyIfStateExists = await this.stateRepository.findById(id);
 

@@ -8,7 +8,7 @@ export interface StateDTO {
 export interface StateRepository {
     create(data: StateDTO): Promise<State>;
     findById(id: number): Promise<State | null>;
-    deleteById(id: number): Promise<State | null>;
+    deleteById(id: number): Promise<null>;
     findAll(): Promise<State[] | []>;
     updateById(id: number, data: StateDTO): Promise<State | null>;
     findByAcronym(acronym: string): Promise<State | null>;

@@ -23,7 +23,7 @@ class CityRepositoryPrisma implements CityRepository {
         return result || null;
     }
 
-    async deleteById(id: number): Promise<City | null> {
+    async deleteById(id: number): Promise<null> {
 
         const result = await prisma.city.delete({
             where: {
@@ -31,7 +31,7 @@ class CityRepositoryPrisma implements CityRepository {
             }
         });
 
-        return result || null;
+        return null;
     }
     async findAll(): Promise<[] | City[]> {
 
