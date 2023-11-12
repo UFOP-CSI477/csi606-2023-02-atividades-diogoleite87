@@ -1,5 +1,6 @@
 import { StateDTO, StateRepository } from "../interfaces/state.interface";
 import { StateRepositoryPrisma } from "../repositories/state.repository";
+import { ApiError } from "../middleware/error";
 import { State } from "@prisma/client";
 
 class StateUseCase {
@@ -14,9 +15,9 @@ class StateUseCase {
         const verifyIfStateExistsByName = await this.stateRepository.findByName(body.name);
 
         if (verifyIfStateExistsByAcronym) {
-            throw new Error('State acronym already exists.');
+            throw new ApiError(409, 'State acronym already exists.');
         } else if (verifyIfStateExistsByName) {
-            throw new Error('State name already exists.');
+            throw new ApiError(409, 'State name already exists.');
         }
 
         const result = await this.stateRepository.create(body);
@@ -36,7 +37,7 @@ class StateUseCase {
         const verifyIfStateExists = await this.stateRepository.findById(id);
 
         if (!verifyIfStateExists) {
-            throw new Error('State doesnot exists.')
+            throw new ApiError(404, 'State doesnot exists.');
         }
 
         const result = await this.stateRepository.deleteById(id);
@@ -56,7 +57,7 @@ class StateUseCase {
         const verifyIfStateExists = await this.stateRepository.findById(id);
 
         if (!verifyIfStateExists) {
-            throw new Error('State doesnot exists.')
+            throw new ApiError(404, 'State doesnot exists.');
         }
 
         const result = await this.stateRepository.updateById(id, body);

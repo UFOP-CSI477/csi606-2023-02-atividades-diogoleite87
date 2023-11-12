@@ -2,6 +2,7 @@ import { PersonDTO, PersonRepository } from "../interfaces/person.interface";
 import { PersonRepositoryPrisma } from "../repositories/person.repository";
 import { CityRepositoryPrisma } from "../repositories/city.repository";
 import { CityRepository } from "../interfaces/city.interface";
+import { ApiError } from "../middleware/error";
 import { Person } from "@prisma/client";
 
 class PersonUseCase {
@@ -17,7 +18,7 @@ class PersonUseCase {
         const verifyIfPersonExists = await this.personRepository.findByRg(body.rg);
 
         if (verifyIfPersonExists) {
-            throw new Error('Person rg already exists.')
+            throw new ApiError(409, 'Person rg already exists.');
         }
         const result = await this.personRepository.create(body);
 
@@ -36,7 +37,7 @@ class PersonUseCase {
         const verifyIfCityExists = await this.personRepository.findById(id);
 
         if (!verifyIfCityExists) {
-            throw new Error('City doesnot exists.')
+            throw new ApiError(404, 'Person doesnot exists.');
         }
 
         const result = await this.personRepository.deleteById(id);
@@ -57,9 +58,9 @@ class PersonUseCase {
         const verifyIfStateExists = await this.cityRepository.findById(body.cityId);
 
         if (!verifyIfPersonExists) {
-            throw new Error('Person doesnot exists.');
+            throw new ApiError(404, 'Person doesnot exists.');
         } else if (!verifyIfStateExists) {
-            throw new Error('City id doesnot exists.');
+            throw new ApiError(409, 'City id for relation doesnot exists.');
         }
 
         const result = await this.personRepository.updateById(id, body);

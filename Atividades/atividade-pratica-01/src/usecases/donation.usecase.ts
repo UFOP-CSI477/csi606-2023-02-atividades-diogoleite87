@@ -1,5 +1,6 @@
 import { DonationDTO, DonationRepository } from "../interfaces/donation.interface";
 import { DonationRepositoryPrisma } from "../repositories/donation.repository";
+import { ApiError } from "../middleware/error";
 import { Donation } from "@prisma/client";
 
 class DonationUseCase {
@@ -27,7 +28,7 @@ class DonationUseCase {
         const verifyIfDonationExists = await this.donationRepository.findById(id);
 
         if (!verifyIfDonationExists) {
-            throw new Error('Donation doesnot exists.')
+            throw new ApiError(404, 'Donation doesnot exists.');
         }
 
         const result = await this.donationRepository.deleteById(id);
@@ -47,7 +48,7 @@ class DonationUseCase {
         const verifyIfDonationExists = await this.donationRepository.findById(id);
 
         if (!verifyIfDonationExists) {
-            throw new Error('Donation doesnot exists.')
+            throw new ApiError(404, 'Donation doesnot exists.');
         }
 
         const result = await this.donationRepository.updateById(id, body);

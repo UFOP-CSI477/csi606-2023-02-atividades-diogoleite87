@@ -1,6 +1,7 @@
 import { CollectionLocationDTO, CollectionLocationRepository } from "../interfaces/collectionlocation.interface";
 import { CollectionLocationRepositoryPrisma } from "../repositories/collectionlocation.repository";
 import { CollectionLocation } from "@prisma/client";
+import { ApiError } from "../middleware/error";
 
 class CollectionLocationUseCase {
     private collectionLocationRepository: CollectionLocationRepository;
@@ -27,7 +28,7 @@ class CollectionLocationUseCase {
         const verifyIfCollectionLocationExists = await this.collectionLocationRepository.findById(id);
 
         if (!verifyIfCollectionLocationExists) {
-            throw new Error('Collection Location doesnot exists.')
+            throw new ApiError(404, 'Collection location doesnot exists.')
         }
 
         const result = await this.collectionLocationRepository.deleteById(id);
@@ -47,7 +48,7 @@ class CollectionLocationUseCase {
         const verifyIfCollectionLocationExists = await this.collectionLocationRepository.findById(id);
 
         if (!verifyIfCollectionLocationExists) {
-            throw new Error('Collection Location doesnot exists.')
+            throw new ApiError(404, 'Collection location doesnot exists.')
         }
 
         const result = await this.collectionLocationRepository.updateById(id, body);

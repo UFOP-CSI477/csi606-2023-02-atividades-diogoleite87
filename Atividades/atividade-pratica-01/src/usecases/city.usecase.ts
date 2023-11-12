@@ -2,6 +2,7 @@ import { StateRepositoryPrisma } from "../repositories/state.repository";
 import { CityDTO, CityRepository } from "../interfaces/city.interface";
 import { CityRepositoryPrisma } from "../repositories/city.repository";
 import { StateRepository } from "../interfaces/state.interface";
+import { ApiError } from "../middleware/error";
 import { City } from "@prisma/client";
 
 class CityUseCase {
@@ -18,9 +19,9 @@ class CityUseCase {
         const verifyIfStateExists = await this.stateRepository.findById(body.stateId);
 
         if (verifyIfCityExists) {
-            throw new Error('City already exists.');
+            throw new ApiError(409, 'City already exists.');
         } else if (!verifyIfStateExists) {
-            throw new Error('State id doesnot exists.');
+            throw new ApiError(404, 'State id for relation doesnot exists.');
         }
 
         const result = await this.cityRepository.create(body);
@@ -40,7 +41,7 @@ class CityUseCase {
         const verifyIfCityExists = await this.cityRepository.findById(id);
 
         if (!verifyIfCityExists) {
-            throw new Error('City doesnot exists.')
+            throw new ApiError(404, 'City doesnot exists.');
         }
 
         const result = await this.cityRepository.deleteById(id);
@@ -61,9 +62,9 @@ class CityUseCase {
         const verifyIfStateExists = await this.stateRepository.findById(body.stateId);
 
         if (!verifyIfCityExists) {
-            throw new Error('City doesnot exists.');
+            throw new ApiError(404, 'City doesnot exists.');
         } else if (!verifyIfStateExists) {
-            throw new Error('State id doesnot exists.');
+            throw new ApiError(404, 'State id for relation doesnot exists.');
         }
 
         const result = await this.cityRepository.updateById(id, body);
