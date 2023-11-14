@@ -112,7 +112,7 @@ export default function TablePersons() {
             toast.success('Deletado com sucesso!')
             getPersons()
         }).catch((err) => {
-            toast.success(err.message)
+            toast.error(err.message)
         }).finally(() => {
             setLoading(false)
             setOpenDeletePerson(false)
