@@ -1,6 +1,6 @@
 import { List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
+import { Home, Person } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import { Home } from '@mui/icons-material';
 
 interface MyListItemProps {
     icon: JSX.Element
@@ -29,6 +29,7 @@ export function DrawerListItem() {
     return (
         <List>
             <MyListItem icon={<Home />} router='/' iconText="Início" />
+            <MyListItem icon={<Person />} router='/person' iconText="Pessoas" />
         </List>
     )
 }
