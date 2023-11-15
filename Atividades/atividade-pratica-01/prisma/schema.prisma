@@ -16,7 +16,7 @@ model CollectionLocation {
   street     String
   number     String
   complement String
-  city       City       @relation(fields: [cityId], references: [id])
+  city       City       @relation(fields: [cityId], references: [id], onDelete: Cascade)
   cityId     Int
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
@@ -27,9 +27,9 @@ model CollectionLocation {
 
 model Donation {
   id        Int                @id @unique @default(autoincrement())
-  person    Person             @relation(fields: [personId], references: [id])
+  person    Person             @relation(fields: [personId], references: [id], onDelete: Cascade)
   personId  Int
-  local     CollectionLocation @relation(fields: [localId], references: [id])
+  local     CollectionLocation @relation(fields: [localId], references: [id], onDelete: Cascade)
   localId   Int
   date      DateTime
   createdAt DateTime           @default(now())
@@ -45,9 +45,9 @@ model Person {
   number      String
   complement  String
   rg          String
-  city        City       @relation(fields: [cityId], references: [id])
+  city        City       @relation(fields: [cityId], references: [id], onDelete: Cascade)
   cityId      Int
-  bloodType   BloodType  @relation(fields: [bloodTypeId], references: [id])
+  bloodType   BloodType  @relation(fields: [bloodTypeId], references: [id], onDelete: Cascade)
   bloodTypeId Int
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
@@ -59,7 +59,7 @@ model Person {
 model City {
   id                  Int                  @id @unique @default(autoincrement())
   name                String
-  state               State                @relation(fields: [stateId], references: [id])
+  state               State                @relation(fields: [stateId], references: [id], onDelete: Cascade)
   stateId             Int
   createdAt           DateTime             @default(now())
   updatedAt           DateTime             @updatedAt
