@@ -15,7 +15,7 @@ model CollectionLocation {
   name       String
   street     String
   number     String
-  complement String
+  complement String?
   city       City       @relation(fields: [cityId], references: [id], onDelete: Cascade)
   cityId     Int
   createdAt  DateTime   @default(now())
@@ -43,7 +43,7 @@ model Person {
   name        String
   street      String
   number      String
-  complement  String
+  complement  String?
   rg          String
   city        City       @relation(fields: [cityId], references: [id], onDelete: Cascade)
   cityId      Int
