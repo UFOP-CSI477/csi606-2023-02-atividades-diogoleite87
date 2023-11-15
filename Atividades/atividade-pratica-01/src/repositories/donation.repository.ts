@@ -52,6 +52,17 @@ class DonationRepositoryPrisma implements DonationRepository {
         return result || null;
     }
 
+    async findAllByPersonId(personId: number): Promise<Donation[] | []> {
+
+        const result = await prisma.donation.findMany({
+            where: {
+                personId
+            }
+        })
+
+        return result;
+    }
+
 }
 
 export { DonationRepositoryPrisma }

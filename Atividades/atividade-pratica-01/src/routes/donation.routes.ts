@@ -59,4 +59,16 @@ export async function donationRoutes(fastify: FastifyInstance) {
             reply.send(err);
         }
     });
+
+
+    fastify.get('/person/:id', async (req: FastifyRequest<{ Params: { id: string } }>, reply) => {
+
+        try {
+            const id: number = Number(req.params.id);
+            const data = await donationUseCase.finAllByPersonId(id);
+            return reply.send(data);
+        } catch (err) {
+            reply.send(err);
+        }
+    });
 }

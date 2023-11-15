@@ -12,4 +12,5 @@ export interface DonationRepository {
     deleteById(id: number): Promise<null>;
     findAll(): Promise<Donation[] | []>;
     updateById(id: number, data: DonationDTO): Promise<Donation | null>;
+    findAllByPersonId(personId: number): Promise<Donation[] | []>;
 }

@@ -55,6 +55,13 @@ class DonationUseCase {
 
         return result;
     }
+
+    async finAllByPersonId(personId: number) {
+
+        const result = await this.donationRepository.findAllByPersonId(personId);
+
+        return result;
+    }
 }
 
 export { DonationUseCase }
