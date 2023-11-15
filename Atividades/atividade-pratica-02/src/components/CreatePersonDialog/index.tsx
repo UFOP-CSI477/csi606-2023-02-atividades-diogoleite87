@@ -80,7 +80,7 @@ export default function CreatePersonDialog({ open, setOpen, bloodTypes, cities, 
                             <TextField fullWidth name="number" id="number" label="Número" required type="number" />
                         </Grid>
                         <Grid item xs={4}>
-                            <TextField fullWidth name="complement" id="complement" label="Complemento" required />
+                            <TextField fullWidth name="complement" id="complement" label="Complemento" />
                         </Grid>
                         <Grid item xs={4}>
                             <TextField fullWidth name="rg" id="rg" label="RG" required />

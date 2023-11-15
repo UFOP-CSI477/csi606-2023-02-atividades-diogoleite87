@@ -84,7 +84,7 @@ export default function UpdatePersonDialog({ open, setOpen, bloodTypes, cities, 
                             <TextField fullWidth name="number" id="number" label="Número" required type="number" defaultValue={person.number} />
                         </Grid>
                         <Grid item xs={4}>
-                            <TextField fullWidth name="complement" id="complement" label="Complemento" required defaultValue={person.complement} />
+                            <TextField fullWidth name="complement" id="complement" label="Complemento" defaultValue={person.complement} />
                         </Grid>
                         <Grid item xs={4}>
                             <TextField fullWidth name="rg" id="rg" label="RG" required defaultValue={person.rg} />
