@@ -8,8 +8,10 @@ const getDonationById = (id: number) => api.get<Donation>(`/donation/${id}`)
 const deleteDonationById = (id: number) => api.delete(`/donation/${id}`)
 const postDonation = (data: DonationDTO) => api.post(`/donation`, data)
 const getAllDonations = () => api.get<Donation[]>(`/donation`)
+const getAllDonationsByPersonId = (personId: number) => api.get<Donation[]>(`/donation/person/${personId}`)
 
 export const donationService = {
+    getAllDonationsByPersonId,
     deleteDonationById,
     getAllDonations,
     putDonationById,
