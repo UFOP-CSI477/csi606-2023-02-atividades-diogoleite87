@@ -1,5 +1,5 @@
+import { Bloodtype, Home, LocalHospital, Person, Place, VolunteerActivism } from '@mui/icons-material';
 import { List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
-import { Home, Person } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
 interface MyListItemProps {
@@ -30,6 +30,10 @@ export function DrawerListItem() {
         <List>
             <MyListItem icon={<Home />} router='/' iconText="Início" />
             <MyListItem icon={<Person />} router='/person' iconText="Pessoas" />
+            <MyListItem icon={<VolunteerActivism />} router='/donation' iconText="Doações" />
+            <MyListItem icon={<Bloodtype />} router='/blood-type' iconText="Tipo Sanguíneo" />
+            <MyListItem icon={<LocalHospital />} router='/collection-location' iconText="Locais de Coleta" />
+            <MyListItem icon={<Place />} router='/location' iconText="Cidade / Estado" />
         </List>
     )
 }
