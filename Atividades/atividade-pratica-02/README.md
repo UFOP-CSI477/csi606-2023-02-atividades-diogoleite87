@@ -1,27 +1,26 @@
-# React + TypeScript + Vite
+# Frontend - Sistema de Agendamento de Doação de Sangue
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este projeto foi desenvolvido como parte do curso de Sistemas de Informação na Universidade Federal de Ouro Preto, especificamente na disciplina Sistemas Web I (CSI606). O objetivo principal deste trabalho é aplicar os conceitos apresentados ao longo do curso e colocá-los em prática.
 
-Currently, two official plugins are available:
+## Pré-requisitos
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Certifique-se de ter o Node.js e o npm instalados na sua máquina.
 
-## Expanding the ESLint configuration
+## Instalação
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+1. **Clone o repositório:**
 
-- Configure the top-level `parserOptions` property like this:
+   ```bash
+   git clone https://github.com/UFOP-CSI477/csi606-2023-02-atividades-diogoleite87/tree/master/Atividades/atividade-pratica-02
+   ```
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+2. **Instale as depêndencias:**
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+   ```bash
+   npm install
+   ```
+
+3. **Por último, execute a aplicação:**
+   ```bash
+   npm run dev # servidor sera executado na porta disponível
+   ```
