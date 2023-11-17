@@ -1,46 +1,65 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
 
-import ConfirmDeleteDialog from "../ConfirmDeleteDialog";
-import CreatePersonDialog from "../CreatePersonDialog";
+import ConfirmDeleteDialog from "../ConfirmDeleteDialog"
+import UpdatePersonDialog from "../UpdatePersonDialog"
+import TableDonations from "../TableDonations"
 
-import { Box, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TextField } from "@mui/material";
-import { bloodTypeService } from "../../services/bloodTypeService";
-import { BloodType, City, Person } from "../../schemas/models";
-import { personService } from "../../services/personService";
-import { cityService } from "../../services/cityService";
-import { toast } from "react-toastify";
-import UpdatePersonDialog from "../UpdatePersonDialog";
+import { BloodType, City, Donation, Person } from "../../schemas/models"
+import { Box, Button, Grid, Paper, Typography } from "@mui/material"
+import { bloodTypeService } from "../../services/bloodTypeService"
+import { donationService } from "../../services/donationService"
+import { personService } from "../../services/personService"
+import { cityService } from "../../services/cityService"
+import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify"
 
-export default function TablePersons() {
 
-    const [openRegisterPerson, setOpenRegisterPerson] = useState<boolean>(false)
+interface IPersonContainerProps {
+    personId: number
+}
+
+export default function PersonContainer({ personId }: IPersonContainerProps) {
+
+    const navigate = useNavigate()
+
     const [openUpdatePerson, setOpenUpdatePerson] = useState<boolean>(false)
     const [openDeletePerson, setOpenDeletePerson] = useState<boolean>(false)
-    const [deletePerson, setDeletePerson] = useState<Person>({} as Person)
-    const [updatePerson, setUpdatePerson] = useState<Person>({} as Person)
     const [bloodTypes, setBloodTypes] = useState<BloodType[]>([])
-    const [filterPerson, setFilterPerson] = useState<string>('')
-    const [rowsPerPage, setRowsPerPage] = useState<number>(10)
+    const [donations, setDonations] = useState<Donation[]>([])
+    const [person, setPerson] = useState<Person>({} as Person)
     const [loading, setLoading] = useState<boolean>(false)
-    const [persons, setPersons] = useState<Person[]>([])
     const [cities, setCities] = useState<City[]>([])
-    const [page, setPage] = useState<number>(0)
 
-    const getCities = () => {
+    const getPersonById = () => {
 
         setLoading(true)
 
-        toast.promise(cityService.getAllCities(), {
+        toast.promise(personService.getPersonById(personId), {
             pending: 'Carregando...',
             error: 'Erro ao retornar os dados.'
         }).then(res => {
-            setCities(res.data)
+            setPerson(res.data)
         }).catch((err) => {
             toast.error(err.message)
         }).finally(() => {
             setLoading(false)
         })
+    }
 
+    const getDonationsByPersonId = () => {
+
+        setLoading(true)
+
+        toast.promise(donationService.getAllDonationsByPersonId(personId), {
+            pending: 'Carregando...',
+            error: 'Erro ao retornar os dados.'
+        }).then(res => {
+            setDonations(res.data)
+        }).catch((err) => {
+            toast.error(err.message)
+        }).finally(() => {
+            setLoading(false)
+        })
     }
 
     const getBloodTypes = () => {
@@ -57,18 +76,14 @@ export default function TablePersons() {
         }).finally(() => {
             setLoading(false)
         })
-
     }
 
-    const getPersons = () => {
-
-        setLoading(true)
-
-        toast.promise(personService.getAllPersons(), {
+    const getCities = () => {
+        toast.promise(cityService.getAllCities(), {
             pending: 'Carregando...',
             error: 'Erro ao retornar os dados.'
         }).then(res => {
-            setPersons(res.data)
+            setCities(res.data)
         }).catch((err) => {
             toast.error(err.message)
         }).finally(() => {
@@ -76,41 +91,13 @@ export default function TablePersons() {
         })
     }
 
-    const handleChangePage = (_event: unknown, newPage: number) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setRowsPerPage(+event.target.value);
-        setPage(0);
-    };
-
-    const handleFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setFilterPerson(event.target.value);
-        setPage(0);
-    };
-
-    const handleOpenRegisterPerson = () => {
-        setOpenRegisterPerson(true)
-    }
-
-    const handleOpenDeletePerson = (person: Person) => {
-        setOpenDeletePerson(true)
-        setDeletePerson(person)
-    }
-
-    const handleOpenUpdatePerson = (person: Person) => {
-        setOpenUpdatePerson(true)
-        setUpdatePerson(person)
-    }
-
     const handleDeletePerson = () => {
 
         setLoading(true)
 
-        personService.deletePersonById(deletePerson.id).then(() => {
+        personService.deletePersonById(person.id).then(() => {
             toast.success('Deletado com sucesso!')
-            getPersons()
+            navigate('/')
         }).catch((err) => {
             toast.error(err.message)
         }).finally(() => {
@@ -119,77 +106,75 @@ export default function TablePersons() {
         })
     }
 
+    const handleUpdatePerson = () => {
+        setOpenUpdatePerson(true)
+    }
+
+    const handleOpenDeletePerson = () => {
+        setOpenDeletePerson(true)
+    }
+
     useEffect(() => {
-        getPersons()
-        getCities()
+        getDonationsByPersonId()
+        getPersonById()
         getBloodTypes()
+        getCities()
     }, [])
 
     return (
         <Box>
-            <UpdatePersonDialog open={openUpdatePerson} setOpen={setOpenUpdatePerson} getPersons={getPersons} bloodTypes={bloodTypes} cities={cities} person={updatePerson} />
-            <ConfirmDeleteDialog open={openDeletePerson} setOpen={setOpenDeletePerson} handleExecute={handleDeletePerson} loading={loading} title={`Deseja deletar ${deletePerson.name}?`} subTitle={"Essa operação não poderá ser desfeita."} />
-            <CreatePersonDialog getPersons={getPersons} bloodTypes={bloodTypes} cities={cities} open={openRegisterPerson} setOpen={setOpenRegisterPerson} />
-            <Box mb={4} mt={4} display='flex' justifyContent='center' >
-                <TextField variant="filled" fullWidth label='Pesquisar' onChange={handleFilter} disabled={loading} />
-                <Button variant="contained" sx={{ ml: 1 }} disabled={loading} onClick={handleOpenRegisterPerson}>
-                    Cadastrar
-                </Button>
-            </Box>
-            <TableContainer component={Paper} >
-                <Table sx={{ width: 1200 }} stickyHeader aria-label="sticky table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center"><strong>Nome</strong></TableCell>
-                            <TableCell align="center"><strong>Rua</strong></TableCell>
-                            <TableCell align="center"><strong>Número</strong></TableCell>
-                            <TableCell align="center"><strong>Complemento</strong></TableCell>
-                            <TableCell align="center"><strong>RG</strong></TableCell>
-                            <TableCell align="center"><strong>Cidade</strong></TableCell>
-                            <TableCell align="center"><strong>Tipo Sanguíneo</strong></TableCell>
-                            <TableCell align="center" ><strong>Ações</strong></TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {persons
-                            .filter(person => person.name.toLowerCase().includes(filterPerson.toLowerCase()))
-                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                            .map((person) => {
-                                return (
-                                    <TableRow hover tabIndex={-1} key={person.id}>
-                                        <TableCell>{person.name}</TableCell>
-                                        <TableCell align="center">{person.street}</TableCell>
-                                        <TableCell align="center">{person.number}</TableCell>
-                                        <TableCell align="center">{person.complement}</TableCell>
-                                        <TableCell align="center">{person.rg}</TableCell>
-                                        <TableCell align="center">{cities?.find(city => city.id === person.cityId)?.name}</TableCell>
-                                        <TableCell align="center">{bloodTypes?.find(bloodType => bloodType.id === person.bloodTypeId)?.type}</TableCell>
-                                        <TableCell align="center">
-                                            <Button size="small" color="warning" onClick={() => handleOpenUpdatePerson(person)}>
-                                                Editar
-                                            </Button>
-                                            <Button size="small" color="success">
-                                                Doar
-                                            </Button>
-                                            <Button size="small" color="error" onClick={() => handleOpenDeletePerson(person)}>
-                                                Excluir
-                                            </Button>
-                                        </TableCell>
-                                    </TableRow>
-                                );
-                            })}
-                    </TableBody>
-                </Table>
-                <TablePagination
-                    rowsPerPageOptions={[10, 25, 100]}
-                    component="div"
-                    count={persons.filter(person => person.name.toLowerCase().includes(filterPerson.toLowerCase())).length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                />
-            </TableContainer>
+            <ConfirmDeleteDialog open={openDeletePerson} setOpen={setOpenDeletePerson} handleExecute={handleDeletePerson} loading={loading} title={`Deseja deletar ${person.name}?`} subTitle={"Essa operação não poderá ser desfeita."} />
+            <UpdatePersonDialog person={person} getPersons={getPersonById} open={openUpdatePerson} setOpen={setOpenUpdatePerson} cities={cities} bloodTypes={bloodTypes} />
+            <Paper sx={{
+                margin: 'auto',
+                maxWidth: 600,
+                padding: 4
+            }}>
+                <Box display='flex' justifyContent='space-between' alignItems='center'>
+                    <Typography variant="h5" gutterBottom>
+                        {person.name}
+                    </Typography>
+                    <Box>
+                        <Button variant="outlined" onClick={handleUpdatePerson}>
+                            Editar
+                        </Button>
+                        <Button color="error" variant="outlined" onClick={handleOpenDeletePerson} sx={{ ml: 1 }}>
+                            Apagar
+                        </Button>
+                    </Box>
+                </Box>
+                <Grid container spacing={2} mt={2}>
+                    <Grid item xs={6}>
+                        <Typography>ID: {person.id}</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Typography>RG: {person.rg}</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography>Endereço: {person.street}, {person.number}</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography>Complemento: {person.complement}</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Typography>Cidade: {cities?.find(city => city.id === person.cityId)?.name}</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Typography>Tipo Sanguíneo: {bloodTypes?.find(bloodType => bloodType.id === person.bloodTypeId)?.type}</Typography>
+                    </Grid>
+
+                    {/* <Grid item xs={6}>
+                        <Typography>Created At: {person.createdAt}</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Typography>Updated At: {person.updatedAt}</Typography>
+                    </Grid> */}
+                </Grid>
+            </Paper>
+            <Typography variant="h5" mt={5} mb={2}>
+                Doações feita por {person.name}:
+            </Typography>
+            <TableDonations donations={donations} getDonations={getDonationsByPersonId} personId={personId} />
         </Box>
     )
 }
