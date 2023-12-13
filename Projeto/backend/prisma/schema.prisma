@@ -26,7 +26,7 @@ model User {
 }
 
 model Order {
-  id        Int         @id @default(autoincrement())
+  id        Int         @id @unique @default(autoincrement())
   date      DateTime
   clientId  Int
   vendorId  String
@@ -42,8 +42,8 @@ model Order {
 }
 
 model Customer {
-  id        Int      @id @default(autoincrement())
-  cpf       String   @unique
+  id        Int      @id @unique @default(autoincrement())
+  cpf       String
   name      String
   phone     String?
   email     String?
@@ -57,13 +57,14 @@ model Customer {
 }
 
 model Item {
-  id          Int         @id @default(autoincrement())
+  id          Int         @id @unique @default(autoincrement())
   name        String
   description String?
   categoryId  Int
   value       Float
-  stock       Int?
+  stock       Int
   deleted     Boolean
+  image       String?
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
   category    Category    @relation(fields: [categoryId], references: [id])
@@ -73,7 +74,7 @@ model Item {
 }
 
 model Category {
-  id          Int      @id @default(autoincrement())
+  id          Int      @id @unique @default(autoincrement())
   name        String
   description String?
   deleted     Boolean
@@ -85,11 +86,12 @@ model Category {
 }
 
 model OrderItem {
-  id        Int      @id @default(autoincrement())
+  id        Int      @id @unique @default(autoincrement())
   orderId   Int
   itemId    Int
   value     Float
   quantity  Int
+  deleted   Boolean
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   order     Order    @relation(fields: [orderId], references: [id])

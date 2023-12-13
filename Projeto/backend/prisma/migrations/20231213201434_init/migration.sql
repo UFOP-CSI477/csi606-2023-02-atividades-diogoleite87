@@ -49,8 +49,9 @@ CREATE TABLE "items" (
     "description" TEXT,
     "categoryId" INTEGER NOT NULL,
     "value" DOUBLE PRECISION NOT NULL,
-    "stock" INTEGER,
+    "stock" INTEGER NOT NULL,
     "deleted" BOOLEAN NOT NULL,
+    "image" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -76,6 +77,7 @@ CREATE TABLE "order_items" (
     "itemId" INTEGER NOT NULL,
     "value" DOUBLE PRECISION NOT NULL,
     "quantity" INTEGER NOT NULL,
+    "deleted" BOOLEAN NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -86,7 +88,19 @@ CREATE TABLE "order_items" (
 CREATE UNIQUE INDEX "users_id_key" ON "users"("id");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "customers_cpf_key" ON "customers"("cpf");
+CREATE UNIQUE INDEX "orders_id_key" ON "orders"("id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "customers_id_key" ON "customers"("id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "items_id_key" ON "items"("id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "categories_id_key" ON "categories"("id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "order_items_id_key" ON "order_items"("id");
 
 -- AddForeignKey
 ALTER TABLE "orders" ADD CONSTRAINT "orders_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES "customers"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
