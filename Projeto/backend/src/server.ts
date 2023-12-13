@@ -3,6 +3,7 @@ import cors from 'cors'
 import 'express-async-errors'
 
 import categoryRoutes from './routes/category.routes'
+import customerRoutes from './routes/customer.routes'
 import userRoutes from './routes/user.routes'
 
 import { errorMiddleware } from './middleware/error.middleware'
@@ -17,6 +18,7 @@ prisma.$connect().then(() => {
 
     app.use('/category', categoryRoutes())
     app.use('/user', userRoutes())
+    app.use('/customer', customerRoutes())
 
     app.use(errorMiddleware)
 
