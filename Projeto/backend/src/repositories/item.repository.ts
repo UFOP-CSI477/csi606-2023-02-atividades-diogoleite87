@@ -41,6 +41,15 @@ class ItemRepositoryPrisma implements ItemRepository {
             where: {
                 deleted: false,
                 categoryId: categoryId ? categoryId : undefined
+            },
+            include: {
+                category: {
+                    select: {
+                        id: true,
+                        name: true,
+                        description: true
+                    }
+                }
             }
         });
 
@@ -52,6 +61,15 @@ class ItemRepositoryPrisma implements ItemRepository {
         const result = await prisma.item.findUnique({
             where: {
                 id
+            },
+            include: {
+                category: {
+                    select: {
+                        id: true,
+                        name: true,
+                        description: true
+                    }
+                }
             }
         });
 
