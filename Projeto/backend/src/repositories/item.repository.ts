@@ -60,7 +60,8 @@ class ItemRepositoryPrisma implements ItemRepository {
 
         const result = await prisma.item.findUnique({
             where: {
-                id
+                id,
+                deleted: false
             },
             include: {
                 category: {
