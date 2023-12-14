@@ -7,7 +7,14 @@ class CustomerRepositoryPrisma implements CustomerRepository {
     async createCustomer(customer: CustomerDTO): Promise<Customer> {
 
         const result = await prisma.customer.create({
-            data: { ...customer, deleted: false }
+            data: {
+                cpf: customer.cpf,
+                address: customer.address,
+                name: customer.name,
+                phone: customer.phone,
+                email: customer.email,
+                deleted: false
+            }
         });
 
         return result || null;

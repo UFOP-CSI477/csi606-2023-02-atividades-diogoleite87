@@ -22,7 +22,11 @@ class CategoryRepositoryPrisma implements CategoryRepository {
     async createCategory(category: CategoryDTO): Promise<Category> {
 
         const result = await prisma.category.create({
-            data: { ...category, deleted: false }
+            data: {
+                name: category.name,
+                description: category.description,
+                deleted: false
+            }
         });
 
         return result;
