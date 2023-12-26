@@ -77,7 +77,7 @@ class ItemRepositoryPrisma implements ItemRepository {
         return result || null;
     }
 
-    async updateItemById(id: number, item: ItemDTO): Promise<{ id: number; name: string; description: string | null; categoryId: number; value: number; stock: number; deleted: boolean; image: string | null; createdAt: Date; updatedAt: Date; } | null> {
+    async updateItemById(id: number, item: ItemDTO): Promise<Item | null> {
 
         const result = await prisma.item.update({
             where: {
@@ -88,8 +88,7 @@ class ItemRepositoryPrisma implements ItemRepository {
                 image: item.image,
                 stock: item.stock,
                 description: item.description,
-                value: item.value,
-                categoryId: item.categoryId
+                value: item.value
             }
         })
 

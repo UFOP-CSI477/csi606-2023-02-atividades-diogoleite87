@@ -53,10 +53,12 @@ class ItemUseCase {
             throw new NotFoundError('Item não existe.');
         }
 
-        const categoryExists = await this.categoryRepository.findCategoryById(body.categoryId);
+        if (body.categoryId) {
+            const categoryExists = await this.categoryRepository.findCategoryById(body.categoryId);
 
-        if (!categoryExists) {
-            throw new BadRequestError('Erro ao atualizar o item, categoria não existe.');
+            if (!categoryExists) {
+                throw new BadRequestError('Erro ao atualizar o item, categoria não existe.');
+            }
         }
 
         const result = await this.itemRepository.updateItemById(id, body);
