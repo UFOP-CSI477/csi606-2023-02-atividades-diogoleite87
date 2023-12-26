@@ -16,7 +16,6 @@ CREATE TABLE "users" (
 -- CreateTable
 CREATE TABLE "orders" (
     "id" SERIAL NOT NULL,
-    "date" TIMESTAMP(3) NOT NULL,
     "clientId" INTEGER NOT NULL,
     "vendorId" TEXT NOT NULL,
     "value" DOUBLE PRECISION NOT NULL,

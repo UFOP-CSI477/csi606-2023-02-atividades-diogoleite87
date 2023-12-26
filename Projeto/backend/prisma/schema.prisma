@@ -27,7 +27,6 @@ model User {
 
 model Order {
   id        Int         @id @unique @default(autoincrement())
-  date      DateTime
   clientId  Int
   vendorId  String
   value     Float
