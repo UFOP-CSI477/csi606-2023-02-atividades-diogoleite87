@@ -73,7 +73,7 @@ export default function LoginContainer() {
                         alignItems='center'
                     >
                         <Typography component="h1" variant="h5">
-                            ICEA - UFOP
+                            Login
                         </Typography>
                         <TextField
                             label="E-mail"
