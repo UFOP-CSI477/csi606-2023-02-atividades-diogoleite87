@@ -1,4 +1,5 @@
 import MuiAppBar from '@mui/material/AppBar'
+import ProfileButton from '../ProfileButton'
 import ToggleTheme from '../ToggleTheme'
 
 import { Typography, IconButton, Toolbar } from '@mui/material'
@@ -55,6 +56,7 @@ export function AppBar({ open, toggleDrawer }: AppBarProps) {
                     {`Sistema Gerenciador de Vendas`}
                 </Typography>
                 <ToggleTheme />
+                <ProfileButton />
             </Toolbar>
         </AppBarSetup>
     )
