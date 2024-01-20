@@ -20,3 +20,41 @@ export type Profile = {
     type: 1 | 2,
     description: string
 }
+
+export type Customer = {
+    id: number,
+    cpf: string,
+    name: string,
+    phone: string,
+    email: string,
+    address: string,
+}
+
+export type Category = {
+    id: number,
+    name: string,
+    description: string,
+}
+
+export type Item = {
+    id: number,
+    name: string,
+    description: string,
+    value: number,
+    stock: number,
+    image: string,
+    category: Category
+}
+
+export type Order = {
+    id: number,
+    value: number,
+    vendor: Partial<User>,
+    client: Partial<Customer>
+    items: {
+        id: number,
+        quantity: number,
+        value: number,
+        item: Partial<Item>
+    }[]
+}
