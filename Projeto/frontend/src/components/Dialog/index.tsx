@@ -6,17 +6,19 @@ import { ReactNode } from "react";
 interface IDialogProps {
     children: ReactNode,
     title: string,
-    handleCloseDialog: () => void
+    handleCloseDialog: () => void,
+    maxWidth?: 'lg' | 'md' | 'sm' | 'xl' | 'xs',
+    fullWidth?: boolean
 }
 
-export default function DialogComponent({ handleCloseDialog, children, title }: IDialogProps) {
+export default function DialogComponent({ handleCloseDialog, children, title, maxWidth, fullWidth }: IDialogProps) {
     return (
         <Dialog
             TransitionProps={{ unmountOnExit: true }}
             open
             scroll="body"
-            maxWidth='md'
-            fullWidth
+            maxWidth={maxWidth ?? 'md'}
+            fullWidth={fullWidth}
         >
             <DialogTitle>
                 <Grid container justifyContent="space-between" alignItems="center">
