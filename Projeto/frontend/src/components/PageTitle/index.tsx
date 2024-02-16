@@ -8,10 +8,16 @@ interface IPageTitleProps {
 
 export default function PageTitle({ text }: IPageTitleProps) {
     return (
-        <Box display="flex" justifyContent="center" alignItems="center" width='100%'>
-            <Typography variant="h5" style={{ fontWeight: 'bold', marginBottom: '1.5rem', marginTop: '1.5rem' }}>
+        <Box>
+            <Typography
+                component="h1"
+                variant="h6"
+                fontWeight={700}
+                fontSize={30}
+            >
                 {text}
             </Typography>
+            <Box height={5} width='100%' bgcolor={(theme) => theme.palette.primary.main} borderRadius={1} />
         </Box>
     );
 };
