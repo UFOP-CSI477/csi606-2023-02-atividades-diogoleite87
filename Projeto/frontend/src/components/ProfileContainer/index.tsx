@@ -33,7 +33,7 @@ export default function ProfileContainer() {
             <Box display='flex' justifyContent='center' alignItems='center'>
                 <CircularProgress />
             </Box> :
-            <Stack width='100%' spacing={3}>
+            <Stack width='100%' spacing={3} mt={5}>
                 <TextField type="text" name="id" id="id" fullWidth label='ID' defaultValue={profile?.id} InputProps={{ readOnly: true }} />
                 <TextField type="email" name="email" id="email" fullWidth label='E-mail' defaultValue={profile?.email} InputProps={{ readOnly: true }} />
                 <TextField type="text" name="name" id="name" fullWidth label='Nome' defaultValue={profile?.name} InputProps={{ readOnly: true }} />
