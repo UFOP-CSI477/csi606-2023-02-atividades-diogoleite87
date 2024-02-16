@@ -135,7 +135,7 @@ export default function CreateOrder({ openDialog, setOpenDialog, getOrders }: IC
 
         orderService.postOrder({
             vendorId: authData?.user.id ?? '',
-            clientId: selectCustomer.customer?.id,
+            clientId: selectCustomer.customer?.id ?? 0,
             items
         }).then(() => {
             toast.success('Pedido criado com sucesso.')
