@@ -51,6 +51,8 @@ export function AppBar({ open, toggleDrawer }: AppBarProps) {
                     component="h1"
                     variant="h6"
                     noWrap
+                    fontWeight={700}
+                    fontSize={25}
                     sx={{ flexGrow: 1 }}
                 >
                     {`Sistema Gerenciador de Vendas`}
